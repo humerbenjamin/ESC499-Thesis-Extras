@@ -1,0 +1,85 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1706                                 |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      boundariesDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dsmcPatchBoundaries
+(
+
+    boundary
+    {
+        patchBoundaryProperties
+        {
+            patchName            defaultFaces;
+        }
+
+        boundaryModel        dsmcSpecularWallPatch;
+
+        dsmcSpecularWallPatchProperties
+        {
+        }
+    }
+
+    boundary
+    {
+        patchBoundaryProperties
+        {
+         patchName                           inlet;
+        }
+
+        boundaryModel   dsmcDeletionPatch;
+
+        dsmcDeletionPatchProperties
+        {
+            allSpecies		yes;
+        }
+    }
+);
+
+dsmcCyclicBoundaries
+(
+
+);
+
+dsmcGeneralBoundaries
+(
+    boundary
+    {
+        generalBoundaryProperties
+        {
+            patchName                inlet;
+        }
+
+        boundaryModel   dsmcFreeStreamInflowPatch;
+
+        dsmcFreeStreamInflowPatchProperties
+        {
+			      typeIds				                (D2cold);
+			      numberDensities
+			      {
+				         D2cold		2.46e18;
+			      }
+			      
+			      translationalTemperature			300;
+			      rotationalTemperature			300;
+			      velocity			                (0 0 0);
+	      }
+    }
+     
+);
+
+
+// ************************************************************************* //
+
